@@ -2,7 +2,7 @@
 Database initialization with sample data.
 Run this script to set up the database with demo data.
 """
-from app.database.connection import init_database, get_db_connection
+from app.database.Connection import init_database, get_db_connection
 from datetime import date, timedelta
 
 
