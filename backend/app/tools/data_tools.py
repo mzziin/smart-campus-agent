@@ -6,6 +6,8 @@ No LLM logic here - pure data access.
 from datetime import date, timedelta
 from typing import List, Dict, Optional
 from app.database import get_db_connection
+from pathlib import Path
+import json
 
 
 def get_events(
@@ -55,16 +57,42 @@ def get_events(
         
         return [dict(row) for row in rows]
 
+import sqlite3
+from pathlib import Path
+
 
 def get_today_events() -> List[Dict]:
     """
-    Shortcut to get today's events.
-    
-    Returns:
-        List of today's event dictionaries
+    Return events happening today from SQLite database.
     """
-    today = date.today().isoformat()
-    return get_events(event_date=today)
+    try:
+        today = date.today().isoformat()
+
+        DB_PATH = Path(__file__).resolve().parent.parent / "campus.db"
+
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row  # IMPORTANT
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            SELECT id, title, category, date, time, venue, organizer
+            FROM events
+            WHERE date = ?
+            """,
+            (today,)
+        )
+
+        rows = cursor.fetchall()
+        conn.close()
+
+        # Convert sqlite3.Row → dict
+        return [dict(row) for row in rows]
+
+    except Exception as e:
+        print("🔥 get_today_events SQLite ERROR:", repr(e))
+        raise
+
 
 
 def get_exams(

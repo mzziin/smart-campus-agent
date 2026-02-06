@@ -200,7 +200,6 @@ def main():
         st.markdown("### 🚀 Quick Actions")
         
         quick_queries = [
-            "What's happening today?",
             "Any technical events this week?",
             "Show me cultural events",
             "When is the CSE semester 3 exam?",
