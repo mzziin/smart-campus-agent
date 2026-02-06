@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Placements{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h2>💼 Placement Drives</h2>
+    <a href="/admin/placements/add" class="btn">➕ Add New Placement</a>
+</div>
+
+{% if placements %}
+<table>
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Eligible Departments</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Venue</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for placement in placements %}
+        <tr>
+            <td><strong>{{ placement.company }}</strong></td>
+            <td>{{ placement.role }}</td>
+            <td>
+                <span style="padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; 
+                             background: #e8f5e9; color: #2e7d32;">
+                    {{ placement.department }}
+                </span>
+            </td>
+            <td>{{ placement.date }}</td>
+            <td>{{ placement.time }}</td>
+            <td>{{ placement.venue }}</td>
+            <td>
+                <form method="post" action="/admin/placements/delete/{{ placement.id }}" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;"
+                            onclick="return confirm('Delete this placement?')">
+                        🗑️ Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert">
+    No placements found. Click "Add New Placement" to create one.
+</div>
+{% endif %}
+{% endblock %}

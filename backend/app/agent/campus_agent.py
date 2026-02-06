@@ -17,7 +17,9 @@ from app.tools import (
 )
 
 # Load environment variables
+from dotenv import load_dotenv
 load_dotenv()
+
 
 
 # System prompt for the AI agent
@@ -72,10 +74,8 @@ class CampusAgent:
         self.model_name = model
         
         # Initialize Groq model
-        self.model = GroqModel(
-            model_name=self.model_name,
-            api_key=self.api_key
-        )
+        self.model = GroqModel("llama-3.1-8b-instant")
+
         
         # Create agent with tools
         self.agent = Agent(
@@ -95,33 +95,35 @@ class CampusAgent:
     async def process_query(self, user_message: str) -> Dict[str, Any]:
         """
         Process a user query and return structured response.
-        
-        Args:
-            user_message: Natural language query from student
-            
-        Returns:
-            Dictionary with 'message' and optional 'data' fields
         """
         try:
             # Run the agent
             result = await self.agent.run(user_message)
-            
-            # Extract the response
-            response_text = result.data if isinstance(result.data, str) else str(result.data)
-            
-            # Try to extract structured data from tool calls if available
-            tool_data = self._extract_tool_data(result)
-            
+
+            # ✅ CORRECT: Extract agent output
+            output = result.output
+
+            # Output is expected to be a dict like:
+            # { "message": "...", "data": [...] }
+
+            if isinstance(output, dict):
+                return {
+                    "message": output.get("message", ""),
+                    "data": output.get("data")
+                }
+
+            # Fallback (defensive)
             return {
-                "message": response_text,
-                "data": tool_data if tool_data else None
+                "message": str(output),
+                "data": None
             }
-            
+
         except Exception as e:
             return {
                 "message": f"I apologize, but I encountered an error: {str(e)}",
                 "data": None
             }
+
     
     def _extract_tool_data(self, result) -> Optional[List[Dict]]:
         """

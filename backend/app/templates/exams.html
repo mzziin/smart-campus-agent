@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Exams{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h2>📝 Examination Schedules</h2>
+    <a href="/admin/exams/add" class="btn">➕ Add New Exam</a>
+</div>
+
+{% if exams %}
+<table>
+    <thead>
+        <tr>
+            <th>Exam Name</th>
+            <th>Subject</th>
+            <th>Department</th>
+            <th>Semester</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Venue</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exam in exams %}
+        <tr>
+            <td><strong>{{ exam.exam_name }}</strong></td>
+            <td>{{ exam.subject }}</td>
+            <td>
+                <span style="padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; 
+                             background: #f3e5f5; color: #7b1fa2;">
+                    {{ exam.department }}
+                </span>
+            </td>
+            <td>Sem {{ exam.semester }}</td>
+            <td>{{ exam.date }}</td>
+            <td>{{ exam.time }}</td>
+            <td>{{ exam.venue }}</td>
+            <td>
+                <form method="post" action="/admin/exams/delete/{{ exam.id }}" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;"
+                            onclick="return confirm('Delete this exam?')">
+                        🗑️ Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert">
+    No exams found. Click "Add New Exam" to create one.
+</div>
+{% endif %}
+{% endblock %}

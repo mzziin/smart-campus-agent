@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome to Admin Panel</h2>
+<p style="color: #6c757d; margin: 20px 0;">Manage campus events, exams, and placement drives.</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+    
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; color: white;">
+        <h3 style="margin-bottom: 15px;">📅 Events</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">Manage cultural and technical campus events</p>
+        <a href="/admin/events" class="btn" style="background: white; color: #667eea;">Manage Events</a>
+    </div>
+    
+    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 30px; border-radius: 12px; color: white;">
+        <h3 style="margin-bottom: 15px;">📝 Exams</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">Manage examination schedules</p>
+        <a href="/admin/exams" class="btn" style="background: white; color: #f5576c;">Manage Exams</a>
+    </div>
+    
+    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 30px; border-radius: 12px; color: white;">
+        <h3 style="margin-bottom: 15px;">💼 Placements</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">Manage placement drives and company visits</p>
+        <a href="/admin/placements" class="btn" style="background: white; color: #00f2fe;">Manage Placements</a>
+    </div>
+    
+</div>
+
+<div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+    <h3 style="color: #495057; margin-bottom: 10px;">ℹ️ Quick Guide</h3>
+    <ul style="color: #6c757d; line-height: 1.8; margin-left: 20px;">
+        <li>Click on any card above to view and manage data</li>
+        <li>Use "Add New" buttons to insert records</li>
+        <li>Delete functionality available for each record</li>
+        <li>All changes are immediately reflected in the AI assistant</li>
+    </ul>
+</div>
+{% endblock %}

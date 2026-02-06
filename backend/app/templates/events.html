@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h2>📅 Campus Events</h2>
+    <a href="/admin/events/add" class="btn">➕ Add New Event</a>
+</div>
+
+{% if events %}
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Venue</th>
+            <th>Organizer</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td><strong>{{ event.title }}</strong></td>
+            <td>
+                <span style="padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; 
+                             background: {% if event.category == 'technical' %}#e3f2fd{% else %}#fff3e0{% endif %}; 
+                             color: {% if event.category == 'technical' %}#1976d2{% else %}#f57c00{% endif %};">
+                    {{ event.category|upper }}
+                </span>
+            </td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.time }}</td>
+            <td>{{ event.venue }}</td>
+            <td>{{ event.organizer }}</td>
+            <td>
+                <form method="post" action="/admin/events/delete/{{ event.id }}" style="display: inline;">
+                    <button type="submit" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;"
+                            onclick="return confirm('Delete this event?')">
+                        🗑️ Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert">
+    No events found. Click "Add New Event" to create one.
+</div>
+{% endif %}
+{% endblock %}

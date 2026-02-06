@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Add Event{% endblock %}
+
+{% block content %}
+<h2>➕ Add New Event</h2>
+
+<form method="post" action="/admin/events/add" style="max-width: 600px; margin-top: 30px;">
+    
+    <div class="form-group">
+        <label for="title">Event Title *</label>
+        <input type="text" id="title" name="title" required 
+               placeholder="e.g., Tech Talk on AI">
+    </div>
+    
+    <div class="form-group">
+        <label for="category">Category *</label>
+        <select id="category" name="category" required>
+            <option value="">-- Select Category --</option>
+            <option value="cultural">Cultural</option>
+            <option value="technical">Technical</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="date">Date *</label>
+        <input type="date" id="date" name="date" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="time">Time *</label>
+        <input type="text" id="time" name="time" required 
+               placeholder="e.g., 10:00 AM">
+    </div>
+    
+    <div class="form-group">
+        <label for="venue">Venue *</label>
+        <input type="text" id="venue" name="venue" required 
+               placeholder="e.g., Seminar Hall A">
+    </div>
+    
+    <div class="form-group">
+        <label for="organizer">Organizer *</label>
+        <input type="text" id="organizer" name="organizer" required 
+               placeholder="e.g., CSE Department">
+    </div>
+    
+    <div class="form-group">
+        <label for="description">Description (Optional)</label>
+        <textarea id="description" name="description" rows="4" 
+                  placeholder="Brief description of the event"></textarea>
+    </div>
+    
+    <div style="display: flex; gap: 10px;">
+        <button type="submit" class="btn">💾 Save Event</button>
+        <a href="/admin/events" class="btn" style="background: #6c757d;">Cancel</a>
+    </div>
+    
+</form>
+{% endblock %}

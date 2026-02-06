@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Add Exam{% endblock %}
+
+{% block content %}
+<h2>➕ Add New Exam</h2>
+
+<form method="post" action="/admin/exams/add" style="max-width: 600px; margin-top: 30px;">
+    
+    <div class="form-group">
+        <label for="exam_name">Exam Name *</label>
+        <input type="text" id="exam_name" name="exam_name" required 
+               placeholder="e.g., Mid Semester Examination">
+    </div>
+    
+    <div class="form-group">
+        <label for="subject">Subject *</label>
+        <input type="text" id="subject" name="subject" required 
+               placeholder="e.g., Data Structures">
+    </div>
+    
+    <div class="form-group">
+        <label for="department">Department *</label>
+        <select id="department" name="department" required>
+            <option value="">-- Select Department --</option>
+            <option value="CSE">CSE - Computer Science Engineering</option>
+            <option value="ECE">ECE - Electronics & Communication</option>
+            <option value="ME">ME - Mechanical Engineering</option>
+            <option value="CE">CE - Civil Engineering</option>
+            <option value="IT">IT - Information Technology</option>
+            <option value="EEE">EEE - Electrical & Electronics</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="semester">Semester *</label>
+        <select id="semester" name="semester" required>
+            <option value="">-- Select Semester --</option>
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="date">Date *</label>
+        <input type="date" id="date" name="date" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="time">Time *</label>
+        <input type="text" id="time" name="time" required 
+               placeholder="e.g., 9:30 AM">
+    </div>
+    
+    <div class="form-group">
+        <label for="venue">Venue *</label>
+        <input type="text" id="venue" name="venue" required 
+               placeholder="e.g., Block B - Room 204">
+    </div>
+    
+    <div style="display: flex; gap: 10px;">
+        <button type="submit" class="btn">💾 Save Exam</button>
+        <a href="/admin/exams" class="btn" style="background: #6c757d;">Cancel</a>
+    </div>
+    
+</form>
+{% endblock %}

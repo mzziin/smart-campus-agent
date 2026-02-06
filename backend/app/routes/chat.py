@@ -46,10 +46,10 @@ async def chat(request: ChatRequest):
         )
         
     except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error processing query: {str(e)}"
-        )
+        import traceback
+        traceback.print_exc()  # <-- THIS IS CRITICAL
+        raise
+
 
 
 @router.get("/health")
