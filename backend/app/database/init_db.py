@@ -36,13 +36,13 @@ def insert_sample_data():
         
         events = []
         for i in range(50):
-            event_date = today if i < 5 else today + timedelta(days=random.randint(-5, 25))
+            event_date = today if i < 5 else today + timedelta(days=random.randint(0, 25))
             name, category = random.choice(event_pool)
             events.append((
                 f"{name} #{i+1}", 
                 category, # Must be 'technical' or 'cultural'
                 str(event_date), 
-                f"{random.randint(9, 17)}:00 PM", 
+                f"{random.choice(['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'])}", 
                 random.choice(venues), 
                 "University Dept", 
                 f"Description for {name} event {i+1}"
