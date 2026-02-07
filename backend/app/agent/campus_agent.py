@@ -5,7 +5,8 @@ This agent understands natural language queries and selects appropriate tools.
 import os
 from typing import Optional, List, Dict, Any
 from datetime import date
-from pydantic_ai import Agent, RunContext
+from pathlib import Path
+from pydantic_ai import Agent
 from pydantic_ai.models.groq import GroqModel
 from dotenv import load_dotenv
 
@@ -16,9 +17,9 @@ from app.tools import (
     get_placements
 )
 
-# Load environment variables
-from dotenv import load_dotenv
-load_dotenv()
+# Load environment variables from backend/.env regardless of CWD
+_ENV_PATH = Path(__file__).resolve().parent.parent.parent / ".env"
+load_dotenv(_ENV_PATH)
 
 
 
@@ -56,7 +57,7 @@ class CampusAgent:
     Manages agent lifecycle and provides a clean interface.
     """
     
-    def __init__(self, api_key: Optional[str] = None, model: str = "llama-3.1-70b-versatile"):
+    def __init__(self, api_key: Optional[str] = None, model: str = "llama-3.1-8b-instant"):
         """
         Initialize the Campus Agent.
         
@@ -74,7 +75,7 @@ class CampusAgent:
         self.model_name = model
         
         # Initialize Groq model
-        self.model = GroqModel("llama-3.1-8b-instant")
+        self.model = GroqModel(self.model_name)
 
         
         # Create agent with tools
